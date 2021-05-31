@@ -4,9 +4,19 @@
 <button type="button" (click)="signInWithGoogle()" class="btn btn-primary">
   Sign In With Google
 </button>
-<!-- 
-<img src="{{ user.photoUrl }}" />
-<div>
-  <h4>{{ user.name }}</h4>
-  <p>{{ user.email }}</p>
-</div> -->
+
+<div *ngIf="isFBLogin">
+  <div>
+    Name {{ fb.name }} <br />
+    Email {{ fb.email }} <br />
+    Id {{ fb.id }}
+  </div>
+</div>
+
+<div *ngIf="isGoogleLogin">
+  <div>
+    Name {{ google.name }} <br />
+    Email {{ google.email }} <br />
+    Id {{ google.id }}
+  </div>
+</div>

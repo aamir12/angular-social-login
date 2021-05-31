@@ -34,11 +34,10 @@ let socialAuthconfig: SocialAuthServiceConfig = {
   providers: [
     {
       id: GoogleLoginProvider.PROVIDER_ID,
-      provider: new GoogleLoginProvider('GOOGLE_CLIENT_ID', googleLoginOptions),
-    },
-    {
-      id: FacebookLoginProvider.PROVIDER_ID,
-      provider: new FacebookLoginProvider('FACEBOOK_APP_ID', fbLoginOptions),
+      provider: new GoogleLoginProvider(
+        '633971119752-9cdf3nnjvt2v4nbn0imi62ao5clk6lcn.apps.googleusercontent.com',
+        googleLoginOptions
+      ),
     },
   ],
 };

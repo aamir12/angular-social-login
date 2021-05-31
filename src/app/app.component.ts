@@ -4,6 +4,7 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider,
 } from 'angularx-social-login';
+import { FBLoginService } from './fblogin.service';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,20 @@ import {
 export class AppComponent implements OnInit {
   private user: SocialUser;
   private loggedIn: boolean;
-  constructor(private authService: SocialAuthService) {}
+  isFBLogin: boolean = false;
+  isGoogleLogin: boolean = false;
+  fb: any = {};
+  google: any = {};
+  constructor(
+    private authService: SocialAuthService,
+    private fbService: FBLoginService
+  ) {}
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = user != null;
     });
+    this.fbService.init();
   }
 
   signInWithGoogle() {
@@ -26,19 +35,29 @@ export class AppComponent implements OnInit {
       .signIn(GoogleLoginProvider.PROVIDER_ID)
       .then((res) => {
         console.log(res);
+        this.isGoogleLogin = true;
+        this.google = res;
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-  signInWithFB() {
-    this.authService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => console.log(error));
+  async signInWithFB() {
+    // this.authService
+    //   .signIn(FacebookLoginProvider.PROVIDER_ID)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((error) => console.log(error));
+    try {
+      let data = await this.fbService.login();
+      this.isFBLogin = true;
+      console.log(data);
+      this.fb = data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   signOut() {
